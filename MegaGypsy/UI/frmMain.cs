@@ -198,7 +198,6 @@ namespace MegaGypsy {
             freq = ALotThermMega[ball++].currentProbability; if (random <= (double)(freq + tempSum) / totalProbablityMega) return 23; tempSum += freq;
             freq = ALotThermMega[ball++].currentProbability; if (random <= (double)(freq + tempSum) / totalProbablityMega) return 24; tempSum += freq;
             freq = ALotThermMega[ball++].currentProbability; if (random <= (double)(freq + tempSum) / totalProbablityMega) return 25; tempSum += freq;
-            freq = ALotThermMega[ball++].currentProbability; if (random <= (double)(freq + tempSum) / totalProbablityMega) return 26; tempSum += freq;
             return 0;
         }
 
@@ -278,6 +277,7 @@ namespace MegaGypsy {
             freq = countPicks(ball++); if (random <= (double)(freq + tempSum) / totalNumbers) return 67; tempSum += freq;
             freq = countPicks(ball++); if (random <= (double)(freq + tempSum) / totalNumbers) return 68; tempSum += freq;
             freq = countPicks(ball++); if (random <= (double)(freq + tempSum) / totalNumbers) return 69; tempSum += freq;
+            freq = countPicks(ball++); if (random <= (double)(freq + tempSum) / totalNumbers) return 70; tempSum += freq;
             return 0;
         }
         private int powerBallDistribution(double random) {
@@ -517,7 +517,7 @@ namespace MegaGypsy {
             //  Since October 7, 2015, the game has used a 5/69 (white balls) + 1/26 (Powerballs) matrix from which winning numbers are chosen
             // resulting in odds of 1 in 292,201,338 of winning a jackpot per play.[1] Each play costs $2, or $3 with the Power Play option
 
-            string URL = @"https://txlottery.org/export/sites/lottery/Games/Mega_Millions/Winning_Numbers/megamillions.csv";
+            string URL = @"https://www.texaslottery.com/export/sites/lottery/Games/Mega_Millions/Winning_Numbers/megamillions.csv";
             string results = WebUtils.GetCSV(URL);
             List<int> ballsPicked = new List<int>();
             List<int> megaBallPicked = new List<int>();
@@ -614,10 +614,10 @@ namespace MegaGypsy {
                 ALotThermPicks[i].currentProbability = (instantMeanTimeBetweenPick - ALotThermPicks[i].minTimeBetweenPicks) * (100.0 / ALotThermPicks[i].range);
                 if (ALotThermPicks[i].currentProbability > 95.0 || ALotThermPicks[i].currentProbability < 5.0) {
                     Console.Out.WriteLine("Anomaly in probability of ball " + (i + 1) + ": " + ALotThermPicks[i].currentProbability);
-                    if (ALotThermPicks[i].currentProbability < 5.0) {
-                        ALotThermPicks[i].currentProbability = 5.0;
-                    } else if (ALotThermPicks[i].currentProbability > 95.0) {
-                        ALotThermPicks[i].currentProbability = 95.0;
+                    if (ALotThermPicks[i].currentProbability < 1.0) {
+                        ALotThermPicks[i].currentProbability = 1.0;
+                    } else if (ALotThermPicks[i].currentProbability > 99.0) {
+                        ALotThermPicks[i].currentProbability = 99.0;
                     }
                 }
                 totalProbablity += ALotThermPicks[i].currentProbability;
@@ -638,6 +638,8 @@ namespace MegaGypsy {
                     } else if (ALotThermMega[i].currentProbability > 95.0) {
                         ALotThermMega[i].currentProbability = 95.0;
                     }
+                } else {
+                    Console.Out.WriteLine("        in probability of Mega  ball " + (i + 1) + ": " + ALotThermMega[i].currentProbability);
                 }
                 totalProbablityMega += ALotThermPicks[i].currentProbability;
             }
