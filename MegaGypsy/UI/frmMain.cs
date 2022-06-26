@@ -546,7 +546,7 @@ namespace MegaGypsy {
                 if (test >= firstDate) {
                     countDrawings++;
                     try {
-                        if (debug) Console.Out.WriteLine("Date = " + testDate + ": " + values[i + 3] + ", " + values[i + 4] + ", " + values[i + 5] + " - " + values[i + 6] + " - " + values[i + 7] + " - " + values[i + 8] + " - " + values[i + 9] );
+                        if (debug) Console.Out.WriteLine("Date = " + testDate + ": " + values[i + 3] + ", " + values[i + 4] + ", " + values[i + 5] + " , " + values[i + 6] + " , " + values[i + 7] + " - " + values[i + 8] + " : " + values[i + 9] );
                         ballsPicked.Add(Convert.ToInt32(values[i + 3]));
                         ballsPicked.Add(Convert.ToInt32(values[i + 4]));
                         ballsPicked.Add(Convert.ToInt32(values[i + 5]));
@@ -612,7 +612,7 @@ namespace MegaGypsy {
                 daysSinceLastPick = (double)(countDrawings + 1) - ALotThermPicks[i].LNumberDrawings[0];
                 instantMeanTimeBetweenPick = daysSinceLastPick - ALotThermPicks[i].meanTimeBetweenPicks;
                 ALotThermPicks[i].currentProbability = (instantMeanTimeBetweenPick - ALotThermPicks[i].minTimeBetweenPicks) * (100.0 / ALotThermPicks[i].range);
-                if (ALotThermPicks[i].currentProbability > 95.0 || ALotThermPicks[i].currentProbability < 5.0) {
+                if (ALotThermPicks[i].currentProbability > 99.0 || ALotThermPicks[i].currentProbability < 1.0) {
                     Console.Out.WriteLine("Anomaly in probability of ball " + (i + 1) + ": " + ALotThermPicks[i].currentProbability);
                     if (ALotThermPicks[i].currentProbability < 1.0) {
                         ALotThermPicks[i].currentProbability = 1.0;
@@ -631,12 +631,12 @@ namespace MegaGypsy {
                 daysSinceLastPick = (double)(countDrawings + 1) - ALotThermMega[i].LNumberDrawings[0];
                 instantMeanTimeBetweenPick = daysSinceLastPick - ALotThermMega[i].meanTimeBetweenPicks;
                 ALotThermMega[i].currentProbability = (instantMeanTimeBetweenPick - ALotThermMega[i].minTimeBetweenPicks) * (100.0 / ALotThermMega[i].range);
-                if (ALotThermMega[i].currentProbability > 95.0 || ALotThermMega[i].currentProbability < 5.0) {
+                if (ALotThermMega[i].currentProbability > 99.0 || ALotThermMega[i].currentProbability < 1.0) {
                     Console.Out.WriteLine("Anomaly in probability of Mega  ball " + (i + 1) + ": " + ALotThermMega[i].currentProbability);
-                    if (ALotThermMega[i].currentProbability < 5.0) {
-                        ALotThermMega[i].currentProbability = 5.0;
-                    } else if (ALotThermMega[i].currentProbability > 95.0) {
-                        ALotThermMega[i].currentProbability = 95.0;
+                    if (ALotThermMega[i].currentProbability < 1.0) {
+                        ALotThermMega[i].currentProbability = 1.0;
+                    } else if (ALotThermMega[i].currentProbability > 99.0) {
+                        ALotThermMega[i].currentProbability = 99.0;
                     }
                 } else {
                     Console.Out.WriteLine("        in probability of Mega  ball " + (i + 1) + ": " + ALotThermMega[i].currentProbability);
